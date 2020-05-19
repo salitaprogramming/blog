@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+        <title>Related Articles</title>
+        <link rel="stylesheet" href="{% static "articlestyle.css" %}"/>
+</head>
+<body>
+    <div class="row">
+        {% for p in posts %}
+        <div class="blogContent">
+                <div class="blogTitle">
+                    <h2><a href="">{{ p.subject }}</a></h2>
+                    <p>Published: {{ p.date }}</p>
+                    <p>{{ p.date }}</p>
+
+                    <div class="blogImage">
+                        <img src="{{ p.image.url }}"/>
+                    </div>
+
+                    <div class="col-1"></div>
+                    <div class="col-10" style="text-align: left;"><p>{{p.message|linebreaksbr }}</p></div>
+                    <div class="col-1"></div>
+
+                    <div class="col-4"></div>
+                    <div class="col-4"><button class="btn" onclick="goBack()">Back</button></div>
+                    <div class="col-4"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="commentsSection">
+        <form method="post" name="commentMessage" onsubmit="return registerComment()" action="">
+            <div class="col-3"></div>
+            <div class="col-6">
+                    <h1>Leave a Comment</h1>
+                    {% csrf_token %}
+                    {{ form }}
+                    <!--<input type="text" name="name" placeholder="Name" alt="name" size="30%" style="color: #333"><br>
+                    <input type="text" name="email" placeholder="Email" alt="email" size="30%" style="color: #333"><br>
+                    <input type="text" name="subject" placeholder="Subject" alt="subject" size="30%" style="color: #333"><br>
+                    <textarea name="message" placeholder="Leave a message..." rows="10%" cols="30%" style="color: #333"></textarea><br>-->
+                    <button type="submit" class="btn">Submit</button><br>
+            </div>
+            <div class="col-3"></div>
+        </form>
+    </div>
+</body>
+<script>
+    function goBack(){
+      window.history.back();
+    }
+    function registerComment(){
+        console.log('registeredComment function called')
+    }
+</script>
+</html>
